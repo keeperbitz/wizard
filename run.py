@@ -1,5 +1,6 @@
 
 from enum import Enum
+import random
 
 NUM_TOTAL_CARDS = 60
 NUM_PLAYING_CARDS = 52
@@ -42,12 +43,35 @@ class Card():
 		self.name = name
 
 class User():
+
+	score = 0
+	hand = []
+
 	def __init__(self):
 		print('pizza')
 
+	def add_card(self, card):
+		self.hand.append(card)
+
+	def place_card(index):
+		print('pizza')
+
+	def print_hand():
+		print('hi')
+
 class ComputerPlayer():
+
+	score = 0
+	hand = []
+
 	def __init__(self):
 		print('pizza')
+
+	def add_card(self, card):
+		self.hand.append(card)
+
+	def print_hand():
+		print('hi')
 
 class Deck():
 	card_list = []
@@ -75,7 +99,10 @@ class Deck():
 			new_card = Card(Suit.NO_SUIT, Value.JOKER, 'JOKER')
 			card_list.append(new_card)
 
+		random.shuffle(card_list)
 		return card_list
+
+
 
 class Game():
 
@@ -93,9 +120,33 @@ class Game():
 		self.num_computer_players = num_players - 1
 		self.num_users = 1
 		self.user = User()
+		for i in range(0, self.num_computer_players):
+			self.computer_players.append(ComputerPlayer())
 
-	def deal():
+	def perform_round(self, round_num):
+		self.deal(round_num)
+		self.score()
+		self.distribute_scores()
+		self.reset_deck()
+
+	def deal(self, round_num):
+		num_cards_per_player = round_num
+		for i in range(0, self.num_total_players):
+			for j in range(0, round_num):
+				card = self.deck.card_list.pop()
+				if i == 0:
+					self.user.add_card(card)
+				else:
+					self.computer_players[i - 1].add_card(card)
+
+	def score(self):
 		print('hi')
+
+	def distribute_scores(self):
+		print('hi')
+
+	def reset_deck(self):
+		self.deck = Deck()
 
 print('Welcome to the Wizard Game')
 num_players = -1
@@ -109,10 +160,13 @@ while True:
 	print('Invalid number')
 
 game = Game(num_players)
+game.perform_round(1)
 
 # Idea use reinforcement learning to win this game
 
+# Decision Tree
 
+# Minimax
 
 
 
